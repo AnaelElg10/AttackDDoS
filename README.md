@@ -1,75 +1,73 @@
 
-# Simulateur de Botnet avec Docker et Python
+# Botnet Simulator with Docker and Python
 
-Ce projet utilise Docker pour créer un environnement de test sécurisé pour simuler un botnet à des fins éducatives. Le simulateur se compose de trois composants principaux: une image Docker configurée avec Kali Linux et hping3, un script de serveur en Python (`server.py`), et un script de bot en Python (`botnet.py`). Ce projet est destiné à des fins éducatives pour comprendre le fonctionnement des botnets et les stratégies pour les mitiger.
+This project utilizes Docker to create a secure testing environment for simulating a botnet for educational purposes. The simulator consists of three main components: a Docker image configured with Kali Linux and hping3, a server script in Python (server.py), and a bot script in Python (botnet.py). This project is intended for educational use to understand how botnets work and strategies to mitigate them.
 
-## Composants
+## Components
 
-- **Dockerfile**: Crée une image Docker basée sur `kalilinux/kali-rolling` avec `hping3` installé.
-- **botnet.py**: Script de bot qui se connecte au serveur de commande et contrôle (C&C) pour exécuter des commandes.
-- **server.py**: Script du serveur C&C pour gérer les bots connectés et envoyer des commandes.
-- **LICENSE**: Détails de la licence sous laquelle ce projet est distribué.
-- **README.md**: Ce fichier, fournissant une documentation sur le projet.
+- **Dockerfile**: Creates a Docker image based on kalilinux/kali-rolling with hping3 installed.
+- **botnet.py**: Bot script that connects to the Command and Control (C&C) server to execute commands.
+- **server.py**: C&C server script to manage connected bots and send commands.
+- **LICENSE**: Details of the license under which this project is distributed.
+- **README.md**: This file, providing documentation on the project.
 
-## Prérequis
+## Prerequisites
 
-- Docker installé sur votre machine.
-- Python 3 installé sur votre machine (pour exécuter les scripts `botnet` et `serveur`).
+- Docker installed on your machine.
+- Python 3 installed on your machine (to run the botnet and server scripts).
 
-## Mise en place
+## Setup
+### Building the Docker Image
 
-### Construction de l'image Docker
+To build the Docker image from the Dockerfile:
 
-Pour construire l'image Docker à partir du Dockerfile:
-
-```
+```bash
 docker build -t kali-hping3 .
 ```
 
-### Exécution de l'environnement Docker
+### Running the Docker Environment
 
-Pour exécuter un conteneur à partir de cette image:
+To run a container from this image:
 
-```
+```bash
 docker run -it kali-hping3
 ```
 
-Vous serez alors dans un shell à l'intérieur du conteneur, avec `hping3` prêt à être utilisé.
+You will then be in a shell inside the container, with hping3 ready to be used.
 
-### Exécution du Serveur C&C
+### Running the C&C Server
 
-Pour démarrer le serveur C&C, exécutez:
+To start the C&C server, run:
 
-```
+```bash
 python server.py
 ```
 
-Assurez-vous que le script `server.py` est configuré pour écouter sur l'interface et le port appropriés.
+Ensure the `server.py` script is configured to listen on the appropriate interface and port.
 
-### Connexion des Bots
+### Connecting the Bots
 
-Sur chaque bot, exécutez:
+On each bot, run:
 
-```
+```bash
 python botnet.py
 ```
 
-Assurez-vous que `botnet.py` est configuré pour se connecter à l'adresse IP et au port corrects du serveur C&C.
+Ensure `botnet.py` is configured to connect to the correct IP address and port of the C&C server.
 
-## Utilisation
+## Usage
+### C&C Server
 
-### Serveur C&C
-
-Le serveur attendra les connexions des bots et pourra leur envoyer des commandes arbitraires à exécuter.
+The server will wait for connections from bots and will be able to send them arbitrary commands to execute.
 
 ### Botnet
 
-Chaque bot connecté au serveur exécutera les commandes reçues et enverra les résultats au serveur.
+Each bot connected to the server will execute the received commands and send the results back to the server.
 
-## Sécurité et Éthique
+## Security and Ethics
 
-Ce projet est uniquement à des fins éducatives et ne doit être utilisé que dans un environnement de test sécurisé. Ne l'utilisez jamais sur des réseaux ou des systèmes sans autorisation explicite.
+This project is solely for educational purposes and should only be used in a secure testing environment. Never use it on networks or systems without explicit authorization.
 
 ## Contribution
 
-Vos contributions sont les bienvenues. Si vous avez des suggestions d'amélioration ou des corrections, veuillez soumettre une pull request ou une issue sur GitHub.
+Your contributions are welcome. If you have suggestions for improvements or corrections, please submit a pull request or an issue on GitHub.
