@@ -1,24 +1,34 @@
 
-# Dockerfile pour Kali Linux avec hping3
+# Simulateur de Botnet avec Docker et Python
 
-Ce Dockerfile crée une image Docker basée sur `kalilinux/kali-rolling`, la version roulante de Kali Linux, qui est une distribution Linux orientée vers les tests de pénétration et la sécurité informatique. `hping3`, un outil puissant de génération et d'analyse de paquets, est également installé dans cette image.
+Ce projet utilise Docker pour créer un environnement de test sécurisé pour simuler un botnet à des fins éducatives. Le simulateur se compose de trois composants principaux: une image Docker configurée avec Kali Linux et hping3, un script de serveur en Python (`server.py`), et un script de bot en Python (`botnet.py`). Ce projet est destiné à des fins éducatives pour comprendre le fonctionnement des botnets et les stratégies pour les mitiger.
 
-## Fonctionnalités
+## Composants
 
-- **Base de Kali Linux**: Profitez des outils et de l'environnement de Kali Linux directement dans un conteneur Docker.
-- **hping3 inclus**: `hping3` est préinstallé, permettant la manipulation de paquets pour tester la sécurité des réseaux.
+- **Dockerfile**: Crée une image Docker basée sur `kalilinux/kali-rolling` avec `hping3` installé.
+- **botnet.py**: Script de bot qui se connecte au serveur de commande et contrôle (C&C) pour exécuter des commandes.
+- **server.py**: Script du serveur C&C pour gérer les bots connectés et envoyer des commandes.
+- **LICENSE**: Détails de la licence sous laquelle ce projet est distribué.
+- **README.md**: Ce fichier, fournissant une documentation sur le projet.
 
-## Comment utiliser cette image Docker
+## Prérequis
 
-Pour construire l'image Docker à partir de ce Dockerfile, naviguez dans le répertoire contenant le Dockerfile et exécutez la commande suivante:
+- Docker installé sur votre machine.
+- Python 3 installé sur votre machine (pour exécuter les scripts `botnet` et `serveur`).
+
+## Mise en place
+
+### Construction de l'image Docker
+
+Pour construire l'image Docker à partir du Dockerfile:
 
 ```
 docker build -t kali-hping3 .
 ```
 
-Cela construira une image Docker locale nommée `kali-hping3`.
+### Exécution de l'environnement Docker
 
-Pour exécuter un conteneur à partir de cette image, utilisez:
+Pour exécuter un conteneur à partir de cette image:
 
 ```
 docker run -it kali-hping3
@@ -26,16 +36,40 @@ docker run -it kali-hping3
 
 Vous serez alors dans un shell à l'intérieur du conteneur, avec `hping3` prêt à être utilisé.
 
-## Exemple d'utilisation de hping3
+### Exécution du Serveur C&C
 
-Pour envoyer des paquets SYN vers un hôte cible (par exemple, `exemple.com`), vous pouvez utiliser:
+Pour démarrer le serveur C&C, exécutez:
 
 ```
-hping3 -S exemple.com -p 80
+python server.py
 ```
 
-Remplacez `exemple.com` par l'adresse de votre cible et ajustez les options de `hping3` selon vos besoins.
+Assurez-vous que le script `server.py` est configuré pour écouter sur l'interface et le port appropriés.
+
+### Connexion des Bots
+
+Sur chaque bot, exécutez:
+
+```
+python botnet.py
+```
+
+Assurez-vous que `botnet.py` est configuré pour se connecter à l'adresse IP et au port corrects du serveur C&C.
+
+## Utilisation
+
+### Serveur C&C
+
+Le serveur attendra les connexions des bots et pourra leur envoyer des commandes arbitraires à exécuter.
+
+### Botnet
+
+Chaque bot connecté au serveur exécutera les commandes reçues et enverra les résultats au serveur.
+
+## Sécurité et Éthique
+
+Ce projet est uniquement à des fins éducatives et ne doit être utilisé que dans un environnement de test sécurisé. Ne l'utilisez jamais sur des réseaux ou des systèmes sans autorisation explicite.
 
 ## Contribution
 
-Si vous avez des suggestions d'amélioration ou des corrections, n'hésitez pas à soumettre une pull request ou une issue sur GitHub.
+Vos contributions sont les bienvenues. Si vous avez des suggestions d'amélioration ou des corrections, veuillez soumettre une pull request ou une issue sur GitHub.
