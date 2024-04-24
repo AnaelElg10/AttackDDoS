@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DDOS</title>
+    <style>
+        /* Style pour la grille d'images */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 40px;
+        }
+
+        .grid-item img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        #btn{
+        	 background-color: white;
+             color: black;
+             border: 2px solid #04AA6D; /* Green */
+        }
+        #btn:hover {
+          background-color: #04AA6D; /* Green */
+          color: white;
+      	}
+    </style>
+</head>
+<body>
+	<center>
+    <h1>Nginx Server for cute Cats</h1>
+    
+        <button id="btn" onclick="fetchCatImages()">New cat</button>
+    </center>
+    <div class="grid-container" id="catGrid"></div>
+
+    <script>
+        async function fetchCatImages() {
+            const apiUrl = 'https://api.thecatapi.com/v1/images/search?limit=10';
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                const catGrid = document.getElementById('catGrid');
+				catGrid.innerHTML="";
+                data.forEach(cat => {
+                    const gridItem = document.createElement('div');
+                    gridItem.classList.add('grid-item');
+                    gridItem.innerHTML = `
+                        <img src="${cat.url}" alt="Cat Image">
+                    `;
+                    catGrid.appendChild(gridItem);
+                });
+            } catch (error) {
+                console.error('Error fetching cat images:', error);
+            }
+        }
+
+        // Appeler la fonction pour récupérer et afficher les images lors du chargement de la page
+        window.onload = fetchCatImages;
+    </script>
+</body>
+</html>
+
