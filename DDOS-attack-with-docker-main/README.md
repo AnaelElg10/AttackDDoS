@@ -67,12 +67,6 @@ docker-compose -f stack.yml down
 
 This project is for educational purposes only. Do not use it for illegal purposes. The authors of this project are not responsible for any misuse of the information provided.
 
-## Authors
-Ahmat Mahamat Ahmat
-Elaggoun Aref
-Fouché Stanislas
-Memar Ahmed
-
 ## Licence
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
